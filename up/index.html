@@ -1,0 +1,226 @@
+<!doctype html>
+<html><head>
+    <meta charset="utf-8">
+    <title>Smart Clinic</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Carlos Alvarez - Alvarez.is">
+
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/font-style.css" rel="stylesheet">
+	<link href="css/flexslider.css" rel="stylesheet">
+	<!-- <script type="text/javascript" src="js/jquery.js"></script>    
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+	  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+	  <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
+
+	  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+	  <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
+	
+	  <!-- Add Firebase products that you want to use -->
+	  <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js"></script>
+	  <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-firestore.js"></script>
+	  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
+
+	  <script src="js/controller/firebase-config.js"></script>
+	  <script src="js/controller/pageController.js"></script>
+
+	  <script type="text/javascript" src="js/heartbit.js"></script>
+	  <script type="text/javascript" src="js/temp-hum-body.js"></script>
+	  <script type="text/javascript" src="js/gauge.js"></script>
+	  
+	  <!-- NOTY JAVASCRIPT -->
+	  <script type="text/javascript" src="js/noty/jquery.noty.js"></script>
+	  <script type="text/javascript" src="js/noty/layouts/top.js"></script>
+	  <script type="text/javascript" src="js/noty/layouts/topLeft.js"></script>
+	  <script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
+	  <script type="text/javascript" src="js/noty/layouts/topCenter.js"></script>
+	  
+	  <!-- You can add more layouts if you want -->
+	  <script type="text/javascript" src="js/noty/themes/default.js"></script>
+	  <!-- <script type="text/javascript" src="assets/js/dash-noty.js"></script> This is a Noty bubble when you init the theme-->
+	  <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+	  <script src="js/jquery.flexslider.js" type="text/javascript"></script>
+  
+	  <script type="text/javascript" src="js/admin.js"></script>
+
+
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+      }
+    </style>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+   
+
+  	<!-- Google Fonts call. Font Used Open Sans & Raleway -->
+	<link href="http://fonts.googleapis.com/css?family=Raleway:400,300" rel="stylesheet" type="text/css">
+  	<link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+ 
+  </head>
+  <body>
+  
+  	<!-- NAVIGATION MENU -->
+
+    <div class="navbar-nav navbar-inverse navbar-fixed-top">
+        <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html"><img src="auth/images/user2.png" alt="" style="width: 7%;"></a>
+        </div> 
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="index.html"><i class="icon-home icon-white"></i> Home</a></li>                            
+			  <li><a href="create.html"><i class="icon-lock icon-white"></i> Sign Up</a></li>
+			  <li><a href="#" id="singout"><i class="icon-user icon-white"></i> Sign Out</a></li>
+
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+    </div>
+
+    <div class="container">
+
+	  <!-- FIRST ROW OF BLOCKS -->     
+      <div class="row">
+
+      <!-- USER PROFILE BLOCK -->
+        <div class="col-sm-3 col-lg-3">
+      		<div class="dash-unit">
+	      		<dtitle>User Profile</dtitle>
+	      		<hr>
+				<div class="thumbnail">
+					<img src="auth/images/user2.png" alt="Mohi Uddin" class="img-circle" style="max-width: 51%;">
+				</div><!-- /thumbnail -->
+				<h1 id="user-id"></h1>
+				<br>
+					<div class="info-user">
+						<span aria-hidden="true" class="li_user fs1"></span>
+						<span aria-hidden="true" class="li_settings fs1"></span>
+						<span aria-hidden="true" class="li_mail fs1"></span>
+						<span aria-hidden="true" class="li_key fs1"></span>
+					</div>
+				</div>
+        </div>
+
+      <!-- DONUT CHART BLOCK -->
+        <div class="col-sm-3 col-lg-3">
+      		<div class="dash-unit">
+		  		<dtitle>Room Temperature</dtitle>
+		  		<hr>
+	        	<div id="temp-graph" class="data-chart"></div>
+	        	<h2 id="temp"></h2>
+			</div>
+        </div>
+
+      <!-- DONUT CHART BLOCK -->
+        <div class="col-sm-3 col-lg-3">
+      		<div class="dash-unit">
+		  		<dtitle>Room Humidity</dtitle>
+		  		<hr>
+	        	<div id="hum-graph" class="data-chart"></div>
+	        	<h2 id="hum"></h2>
+			</div>
+		</div>
+		<div class="col-sm-3 col-lg-3">
+			<div class="dash-unit">
+				<dtitle>Patient Body Temperature</dtitle>
+				<hr>
+			  <div id="patient-body-temp-graph" class="data-chart"></div>
+			  <h2 id="patient-body-temp"></h2>
+		  </div>
+	  </div>
+        
+      </div><!-- /row -->
+      
+      
+	  <!-- SECOND ROW OF BLOCKS -->     
+      <div class="row" >
+
+
+	  <!-- GRAPH CHART - lineandbars.js file -->     
+        <div class="col-sm-12 col-lg-12">
+      		<div class="dash-unit">
+      		<dtitle>Other Information</dtitle>
+      		<hr>
+			    <div class="section-graph" style="margin-right: auto; margin-left: auto;">
+			      <div id="importantchart"></div>
+			      <br>
+			      <div class="graph-info">
+			        <i class="graph-arrow"></i>
+			        <span class="graph-info-big" id="avg-bit">634.39</span>
+			        <span class="graph-info-small">Avg Heart-bit</span>
+			      </div>
+			    </div>
+			</div>
+        </div>
+
+      </div><!-- /row -->
+     
+ 
+
+    
+      
+     
+      
+      
+	</div> <!-- /container -->
+	<div id="footerwrap">
+      	<footer class="clearfix"></footer>
+      	<div class="container">
+      		<div class="row">
+      			<div class="col-sm-12 col-lg-12">
+      			<p><img src="auth/images/user2.png" alt="" style="max-width: 5%;"></p>
+      			<p>All copy right reserved | smart clinic</p>
+      			</div>
+
+      		</div><!-- /row -->
+      	</div><!-- /container -->		
+	</div><!-- /footerwrap -->
+	
+<script type="text/javascript">
+    $(document).ready(function () {
+
+		$("#user-id").text(localStorage.getItem("islogin"));
+
+        $("#btn-blog-next").click(function () {
+            $('#blogCarousel').carousel('next')
+        });
+        $("#btn-blog-prev").click(function () {
+            $('#blogCarousel').carousel('prev')
+        });
+
+        $("#btn-client-next").click(function () {
+            $('#clientCarousel').carousel('next')
+        });
+        $("#btn-client-prev").click(function () {
+            $('#clientCarousel').carousel('prev')
+        });
+
+    });
+
+	
+	$("#singout").click(function(){
+            console.log('singout', 'click');
+            localStorage.removeItem("islogin");
+            console.log(localStorage.hasOwnProperty("islogin"));
+            window.location.href="login.html";
+        
+    });
+
+</script>   
+</body></html>
